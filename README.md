@@ -20,7 +20,37 @@ MLflow AI Gatewayは、以下のようなLLM開発における共通の課題を
 
 - MLflow 2.5
 
+## 実行方法
+
+1. MLflow AI Gatewayの起動
+
+    ``` bash
+    mlflow gateway start --config-path config.yaml --port 5000 --host 0.0.0.0 --workers 1
+    ```
+
+2. APIドキュメントの確認
+
+    [APIドキュメント](http://localhost:5000/docs)にアクセス
+
+3. Fluent APIによるリクエスト
+
+``` python
+from mlflow.gateway import query, set_gateway_uri
+
+set_gateway_uri(gateway_uri="http://localhost:5000")
+
+response = query(
+    "chat",
+    {"messages": [{"role": "user", "content": "What is the best day of the week?"}]},
+)
+
+print(response)
+
+```
+
+
 ## 参考
+
 - [MLflow ドキュメント](https://mlflow.org/docs/latest/gateway/index.html)
 - [MLflow AI Gatewayの発表
 強力なLLMアーキテクチャとインターフェースツールの提供](https://www.databricks.com/jp/blog/announcing-mlflow-ai-gateway)
